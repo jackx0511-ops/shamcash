@@ -1,0 +1,937 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+        <title>بوت سوريا USDT | آراء المتعاملين</title>
+        <style>
+            * {
+                box-sizing: border-box
+            }
+
+            body {
+                margin: 0;
+                background: #f8faf9;
+                color: #18231f;
+                font-family: Tahoma,Arial,sans-serif
+            }
+
+            main {
+                width: 100%;
+                max-width: 1000px;
+                margin: 0 auto;
+                padding: 14px 6px 130px
+            }
+
+            .hero {
+                width: 100%;
+                overflow: hidden;
+                border-radius: 22px;
+                background: linear-gradient(145deg,#006b46,#00a96b);
+                color: white;
+                text-align: center;
+                box-shadow: 0 12px 34px #006b4630
+            }
+
+            .art {
+                display: block;
+                width: 100%;
+                height: auto;
+                aspect-ratio: auto;
+                object-fit: contain;
+                background: #07583d
+            }
+
+            .hero h1 {
+                font-size: 25px;
+                line-height: 1.25;
+                margin: 8px 8px 2px
+            }
+
+            .hero p {
+                font-size: 15px;
+                line-height: 1.3;
+                margin: 0 8px 9px;
+                color: #d8f7ea
+            }
+
+            h2 {
+                margin: 34px 4px 14px;
+                font-size: 27px
+            }
+
+            .reviews-count {
+                margin: -6px 4px 16px;
+                color: #5b6b64;
+                font-size: 14px
+            }
+
+            .review {
+                display: grid;
+                grid-template-columns: auto minmax(0,1fr);
+                gap: 10px;
+                align-items: start;
+                background: white;
+                border: 1px solid #dfe7e3;
+                border-radius: 16px;
+                padding: 10px 13px;
+                margin: 9px 0;
+                box-shadow: 0 4px 14px #0000000a
+            }
+
+            .avatar {
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                object-fit: cover;
+                flex: none
+            }
+
+            .legacy-avatar {
+                background-repeat: no-repeat;
+                background-color: #eaf2ee
+            }
+
+            .fallback {
+                display: grid;
+                place-items: center;
+                background: #0a9f69;
+                color: white;
+                font-size: 21px
+            }
+
+            html {
+                scroll-behavior: smooth
+            }
+
+            .review {
+                scroll-margin-top: 18px;
+                transition: box-shadow .25s,border-color .25s
+            }
+
+            .review:target {
+                border-color: #229ed9;
+                box-shadow: 0 0 0 3px #229ed92b,0 8px 24px #00000012
+            }
+
+            .review-body {
+                min-width: 0
+            }
+
+            .review strong {
+                color: #087db5;
+                font-size: 18px
+            }
+
+            .review p {
+                font-size: 16px;
+                line-height: 1.45;
+                margin: 5px 0 0;
+                white-space: pre-wrap
+            }
+
+            .parent-quote {
+                display: block;
+                margin: 5px 0 1px;
+                padding: 4px 8px;
+                border-right: 3px solid #229ed9;
+                background: #f5fafc;
+                border-radius: 7px 0 0 7px;
+                color: #263833;
+                text-decoration: none;
+                overflow: hidden
+            }
+
+            .parent-quote b {
+                display: block;
+                color: #1689bb;
+                font-size: 15px;
+                margin-bottom: 3px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis
+            }
+
+            .parent-quote span {
+                display: block;
+                font-size: 14px;
+                line-height: 1.5;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis
+            }
+
+            .review-footer {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 8px;
+                margin-top: 5px;
+                min-height: 30px
+            }
+
+            .review-stars {
+                direction: ltr;
+                text-align: right;
+                color: #f5b301;
+                font-size: 19px;
+                letter-spacing: 2px;
+                margin: 0;
+                text-shadow: 0 1px 2px #0002;
+                white-space: nowrap
+            }
+
+            .review-actions {
+                grid-column: 1/-1;
+                display: grid;
+                grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+                gap: 8px;
+                width: 100%;
+                margin-top: 2px
+            }
+
+            .review-actions form {
+                margin: 0;
+                width: 100%;
+                min-width: 0
+            }
+
+            .review-actions button {
+                width: 100%;
+                min-width: 0;
+                height: 34px;
+                padding: 0 4px;
+                border: 0;
+                border-radius: 10px;
+                font: 12px Tahoma;
+                cursor: pointer;
+                white-space: nowrap
+            }
+
+            .edit-review {
+                background: #e5f5ee;
+                color: #087755
+            }
+
+            .delete-review {
+                background: #fff0f0;
+                color: #bd2828
+            }
+
+            .public-actions {
+                margin: 0;
+                margin-right: auto
+            }
+
+            .public-actions:empty {
+                display: none
+            }
+
+            .reply-review {
+                width: auto;
+                min-width: 66px;
+                height: 30px;
+                padding: 0 9px;
+                border: 0;
+                border-radius: 9px;
+                background: #eef5f2;
+                color: #087755;
+                font: 12px Tahoma;
+                white-space: nowrap
+            }
+
+            .empty,.login {
+                text-align: center;
+                background: white;
+                padding: 25px;
+                border-radius: 22px;
+                margin: 0
+            }
+
+            .notice {
+                padding: 14px;
+                border-radius: 14px;
+                background: #e5f8ee;
+                color: #086341;
+                margin: 18px 0;
+                text-align: center
+            }
+
+            .composer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                padding: 10px max(16px,calc((100% - 968px)/2)) 14px;
+                background: #fff;
+                border-top: 1px solid #ddd
+            }
+
+            .reply-mode {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin: 0 8px 7px;
+                padding: 6px 10px;
+                border-radius: 12px;
+                background: #eaf7f1;
+                color: #087755;
+                font-size: 13px
+            }
+
+            .reply-mode[hidden] {
+                display: none
+            }
+
+            .reply-mode button {
+                width: auto;
+                height: 28px;
+                padding: 0 10px;
+                border: 0;
+                border-radius: 9px;
+                background: #fff;
+                color: #a22;
+                font: 12px Tahoma
+            }
+
+            .rating-picker {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 9px;
+                margin-bottom: 9px;
+                color: #43534c;
+                font-size: 15px
+            }
+
+            .rating-picker b {
+                min-width: 30px;
+                color: #087755;
+                font-size: 13px;
+                direction: ltr
+            }
+
+            .stars-input {
+                direction: ltr;
+                display: flex;
+                gap: 2px;
+                line-height: 1;
+                user-select: none;
+                touch-action: none;
+                padding: 5px 4px;
+                border-radius: 18px;
+                background: #f6f8f7
+            }
+
+            .stars-input button {
+                width: 28px;
+                height: 28px;
+                padding: 0;
+                border: 0;
+                border-radius: 50%;
+                background: transparent;
+                color: #f5b301;
+                font-size: 23px;
+                line-height: 28px;
+                box-shadow: none;
+                touch-action: none
+            }
+
+            .stars-input button.off {
+                color: #d7ddda
+            }
+
+            .comment-row {
+                display: flex;
+                gap: 12px;
+                align-items: center
+            }
+
+            textarea {
+                flex: 1;
+                height: 58px;
+                resize: none;
+                border: 0;
+                outline: 0;
+                box-shadow: none;
+                background: #f5f8f7;
+                border-radius: 30px;
+                padding: 16px;
+                font: 17px Tahoma
+            }
+
+            .comment-row>button {
+                width: 60px;
+                height: 60px;
+                flex: none;
+                border: 0;
+                border-radius: 50%;
+                background: #229ed9;
+                color: white;
+                font-size: 27px
+            }
+
+            .permission-modal {
+                position: fixed;
+                inset: 0;
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+                background: #10251f70;
+                backdrop-filter: blur(6px);
+                -webkit-backdrop-filter: blur(6px)
+            }
+
+            .permission-modal[hidden] {
+                display: none
+            }
+
+            .permission-card {
+                width: min(100%,630px);
+                padding: 24px 20px 18px;
+                border-radius: 24px;
+                background: #fff;
+                text-align: center;
+                box-shadow: 0 18px 50px #0005
+            }
+
+            .permission-icon {
+                display: grid;
+                place-items: center;
+                width: 54px;
+                height: 54px;
+                margin: 0 auto 14px;
+                border-radius: 50%;
+                background: #fff7d8;
+                font-size: 29px
+            }
+
+            .permission-card h3 {
+                margin: 0 0 16px;
+                color: #087755;
+                font-size: 20px;
+                line-height: 1.35
+            }
+
+            .permission-card p {
+                margin: 0 auto 22px;
+                color: #394b45;
+                font-size: 16px;
+                line-height: 1.8
+            }
+
+            .permission-card button {
+                width: 100%;
+                height: 49px;
+                border: 0;
+                border-radius: 14px;
+                background: #229ed9;
+                color: #fff;
+                font: 700 18px Tahoma;
+                cursor: pointer
+            }
+
+            @media(max-width: 380px) {
+                main {
+                    padding-left:4px;
+                    padding-right: 4px
+                }
+
+                .hero h1 {
+                    font-size: 22px;
+                    margin-top: 7px
+                }
+
+                .hero p {
+                    font-size: 13px;
+                    margin-bottom: 8px
+                }
+
+                .review {
+                    margin: 8px 0;
+                    padding: 9px 10px;
+                    gap: 8px
+                }
+
+                .avatar {
+                    width: 44px;
+                    height: 44px
+                }
+
+                .review strong {
+                    font-size: 16px
+                }
+
+                .review p {
+                    font-size: 14px
+                }
+
+                .review-stars {
+                    font-size: 17px;
+                    letter-spacing: 1px
+                }
+
+                .review-actions button {
+                    font-size: 11px;
+                    padding: 0 2px
+                }
+
+                .rating-picker {
+                    gap: 5px;
+                    font-size: 13px
+                }
+
+                .stars-input button {
+                    width: 25px;
+                    font-size: 21px
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <section class="hero">
+                <img class="art" src="/syria-usdt/assets/reviews-cover.png?v=10" alt="سوريا USDT">
+                <h1>بوت سوريا USDT</h1>
+                <p>شارك تجربتك في التعامل معنا</p>
+            </section>
+            <h2>آراء المتعاملين</h2>
+            <p class="reviews-count">255 تقييم من متعاملينا • جميعها 5 نجوم</p>
+            <div id="reviewsList"></div>
+            <script>
+                const REVIEWS = [
+                    ["أبو طالب سلوم","بوركت جهودكم، تجربتي معكم حسنة وما في أي شكوى"],
+                    ["عمار","أشهد بالله أسرع وأرقى تعامل ❤️"],
+                    ["king 👑","شتريت 2500 دولار شام كاش ووصلني التحويل فوراً على محفظتي USDT"],
+                    ["Samar ilaf","أنا كل يوم بشتري وببيع عندكم وما في أي مشاكل"],
+                    ["خالد الأيهم","وأنا كمان بتعامل مع الشباب، ما في مثلهن الله يرزقن"],
+                    ["AM","حبايب قلبي والله أحلى وأسرع تعامل"],
+                    ["Master","شتريت 1000 عملة عن طريق شام كاش واستلمت على محفظتي بدون تأخير"],
+                    ["الغريب 😎","الله يرزقكم، تعامل نظيف وسريع"],
+                    ["عدوان","والله تجربتي ذهب والتعامل ما في متلو"],
+                    ["رسلان","أكابر ❤️"],
+                    ["علي حسين","الله يرزقكم يارب، خدمة ممتازة"],
+                    ["Mohamad","تجربتي ممتازة ما قصرتو"],
+                    ["وجع العمر","الله يرزقكم يارب"],
+                    ["أبو همام","الله يبارك فيكم، سعر جيد والتحويل وصلني بسرعة"],
+                    ["Nizar","أحسن تعامل من ناحية السرعة والسعر"],
+                    ["أبو حذيفة","الله يرزقكن يا شباب"],
+                    ["لؤي محمد القضيب","تعامل راقي وكل الشكر"],
+                    ["Norman.MZ","شكراً كتير للتعامل الحلو والسريع ⭐"],
+                    ["Omar Shabarek","النسبة بسيطة وأسلوب جيد بالرد والتحويل سريع بارك الله فيكم"],
+                    ["Hamza Al manaseer","إي والله النسبة ممتازة وبعتو فوراً الله يرزقكم"],
+                    ["Abd😊","حبايب قلبي الله يرزقكن"],
+                    ["ابو تيما","الله يكرمكن، حولت دولار واستلمت سوري بدون تأخير والسعر منيح"],
+                    ["Sawsan_6060","بدلت عملة رقمية لعملة جديدة شام كاش وبعتولي المبلغ بسرعة مع إنه مبلغ كبير"],
+                    ["جعفر حشو","على عيني، أرجّل شباب وأحلى تعامل"],
+                    ["برهوم","بدلت عملة سورية شام كاش بـ 500 دولار وكان تحويل سريع"],
+                    ["Ali 🦅","تجربة كويسة والتعامل ذهب"],
+                    ["HASSAN...","بدلت 3000 يوسديتي بشام كاش دولار، السعر مناسب وما تأخر التحويل"],
+                    ["💜🤍 استقيمي أيتها النفس","تجربة حسنة وأهم شي السرعة بالتحويل جزاكم الله كل خير"],
+                    ["رامي خزنة","تجربة كويسة وما بقا اتعامل غير معكن"],
+                    ["• جهاد •","ديما بشتري عن طريقكن، وآخر تحويل كان 6292 دولار لـ USDT أخدو 3 دقائق بالضبط"],
+                    ["علي شحود عزيز","من أفضل اللي تعاملت معهن، الله يعطيكم العافية"],
+                    ["عمر ابو سفيان ابو سيف","تعامل راقي جداً والله"],
+                    ["Adam Kelani","قبل كنت اشتري من كاش فلو بس صراحة البوت أسرع والأسعار أفضل خصوصي بالمبالغ الكبيرة"],
+                    ["عدنان خليلي","والله أكابر، بتمنى تضيفو شحن ألعاب وتطبيقات ورصيد فوري"],
+                    ["رامز السوري","بدون مجاملة هاد أحسن بوت لشراء العملات وأسرع من كل البوتات والقنوات التانية"],
+                    ["yazan.zn","أول تعامل إلي بالبوت، حولت مبلغ سوري ووصلني دولار فوراً مع إنه مبلغ كبير"],
+                    ["جمعه ديري","حولت شام كاش 5200 دولار لعملة جديدة عن طريق البوت ووصلني المبلغ بلا تأخير"],
+                    ["M S","كانت تجربتي دهب وتحويل سريع، فضلت حبيب"],
+                    ["HAIDAR","شفت إعلان البوت عالتلجرام والتعامل معكن بريح الراس"],
+                    ["عامر آل خطاف","أول تعامل بمبلغ 1000 يوزديتي وما شاء الله الأمور طيبة والإرسالية سريعة"],
+                    ["Abdo Sh","أفضل حدا اتعامل معو بموضوع شراء وبيع العملات الرقمية"],
+                    ["محمد رسلاني","طلبت اشتري 2051 USDT عن طريق شام كاش ووصلتني العملات ما صار أي تأخير"],
+                    ["جمعة هلال","خدمة سريعة وأسعار منيحة، الله يوفقكم"],
+                    ["أحمد الحلبي","صراحة أسرع بوت جربتو، التحويل وصل قبل ما أفكر أتابع"],
+                    ["أم محمد","بتعامل معكن من سنة وما شفت منكن إلا كل خير"],
+                    ["سامر العلي","السعر دايماً منافس والتحويل ما بيتأخر، الله يعطيكم العافية"],
+                    ["Rana S","خدمة نظيفة وسريعة، شكراً كتير"],
+                    ["محمد نور","بعت 2000 USDT واستلمت شام كاش بنفس الدقيقة، تعامل محترم"],
+                    ["أبو العز","رجال بمعنى الكلمة، الله يرزقكم"],
+                    ["حسام الدين","أول مرة بجرب البوت وطلعت التجربة ناجحة 100%"],
+                    ["Khaled.92","حولت مبلغ كبير وما ترددت لحظة، التعامل ثقة"],
+                    ["مروان الشامي","الأسعار ممتازة والرد سريع، ما في أحسن من هيك"],
+                    ["أبو ياسين","جزاكم الله خير، تعامل سريع وأمين"],
+                    ["سيد رجب","خدمة 24 ساعة فعلاً، راسلتوني نص الليل ورديتو فوراً"],
+                    ["نور الدين","أحسن تجربة تبادل عملات مرقت عليي"],
+                    ["عبد الرحمن","التحويل وصل بأقل من 5 دقائق، ما شاء الله"],
+                    ["Ali Baba","بوت سهل الاستخدام والنتيجة مضمونة"],
+                    ["مالك السيد","تعاملت معكن بمبلغ 800 دولار وكانت التجربة ممتازة"],
+                    ["أبو زيد","الله يجزيكم الخير على الأمانة والسرعة"],
+                    ["يوسف الحمصي","حولت شام كاش ووصلني USDT بدون أي مشكلة"],
+                    ["Fadi K","أفضل خدمة صرافة رقمية بسوريا بلا منافس"],
+                    ["أحمد الشيخ","سعر ممتاز وخدمة أسرع، شكراً"],
+                    ["أبو أنس","ما في تأخير ولا لف ودوران، تعامل مباشر"],
+                    ["بشار العلي","كل الشكر للشباب، تعامل راقي"],
+                    ["سليم الحاج","جربت كذا بوت وهاد أسرعهن وأصدقهن"],
+                    ["Moayad","حولت 1500 دولار ووصلت فوراً، الله يبارك"],
+                    ["أبو الفداء","ثقة وأمانة وسرعة، هيك بتوصف الخدمة"],
+                    ["حيدر علي","خدمة ممتازة والسعر محترم جداً"],
+                    ["زين العابدين","أول تعامل وكانت التجربة أحلى من التوقعات"],
+                    ["عمران","الله يرزقكم، تعامل نظيف وما في أي غلطة"],
+                    ["Sami Halab","بوت محترم وسريع، أنصح الكل يجربو"],
+                    ["أحمد الديري","بدلت مبلغ كبير وما حسيت بأي قلق، الله يوفقكم"],
+                    ["أبو سمرة","الأسعار أفضل من كل مكاتب الصرافة اللي جربتها"],
+                    ["طارق الخطيب","رد سريع وتحويل أسرع، شكراً شباب"],
+                    ["Rami Halab","خدمة خمس نجوم بكل معنى الكلمة"],
+                    ["محمود الأحمد","حولت 300 دولار ووصلوا خلال دقائق، تجربة موفقة"],
+                    ["أبو أيمن","الله يعطيكم العافية، تعامل ولا أروع"],
+                    ["كرم الصالح","من زمان بدور على بوت موثوق وهادا هو"],
+                    ["Hadi.SY","التحويل فوري والسعر منيح، ما في شكوى"],
+                    ["وسيم الحلبي","تعاملت معكن أكثر من مرة وكل مرة أحسن من اللي قبلها"],
+                    ["أبو النور","شباب محترمين وخدمة سريعة، الله يرزقكم"],
+                    ["نضال الشعار","أحسن نسبة لقيتها بالسوق بلا مبالغة"],
+                    ["أحمد السيد","بعت USDT واستلمت شام كاش بسرعة، تجربة ممتازة"],
+                    ["بلال الحسن","كل الشكر على الاحترافية والالتزام"],
+                    ["Abu Omar","تعامل ثقة، ما في تأخير ولا مشاكل"],
+                    ["عمار الحموي","أول تعامل إلي وطلعت التجربة ناجحة، رح كررها"],
+                    ["عبد الله الشامي","الله يبارك بأيديكم، خدمة نظيفة"],
+                    ["محمد الجاسم","حولت مبلغ كبير وما ترددت، والنتيجة ممتازة"],
+                    ["Alaa.D","سرعة بالرد وسرعة بالتحويل، هيك بتكون الخدمة"],
+                    ["خليل إبراهيم","بوت موثوق وأسعار منافسة، شكراً"],
+                    ["أبو تمام","تعاملت معكن بمبالغ كبيرة وكل مرة تمام"],
+                    ["سامر الحلبي","ما في أحسن من هيك تعامل، الله يجزيكم الخير"],
+                    ["Majd Sham","خدمة سريعة وأسعار عادلة، تجربة موفقة"],
+                    ["أحمد العبد","بدلت سوري بدولار بسرعة وما في أي تعقيد"],
+                    ["فؤاد الخطيب","أحسن بوت تعاملت معو بحياتي"],
+                    ["أبو جعفر","الله يعطيكم الصحة، تعامل راقي وسريع"],
+                    ["رشيد الحلبي","حولت 700 دولار ووصلت فوراً، شكراً شباب"],
+                    ["Yaser.99","الأسعار ممتازة والتحويل ما بيتأخر أبداً"],
+                    ["سامي الحاج","خدمة محترمة وصدق بالتعامل"],
+                    ["أبو حمزة","تعاملت معكن أكتر من 20 مرة وما في ولا مشكلة"],
+                    ["نور الشام","الله يرزقكم، كل تعامل معكن أحسن من اللي قبلو"],
+                    ["عبد الستار","السرعة والدقة والأمانة، ثلاث كلمات بتوصف الخدمة"],
+                    ["Ahmad.Z","بوت ممتاز وسهل، ما في أي تعقيد"],
+                    ["كمال الدين","حولت شام كاش ووصلني USDT بدون تأخير يذكر"],
+                    ["أبو رامي","شباب أمينين وخدمة سريعة، الله يوفقكم"],
+                    ["طلال الشيخ","أفضل تجربة تبادل مرقت عليي من سنين"],
+                    ["MHD Ali","سعر ممتاز وخدمة أسرع، شكراً كتير"],
+                    ["سليمان الحسن","تعامل نظيف من أول رسالة لآخر تحويل"],
+                    ["أبو بكر","الله يجزيكم الخير، ما قصرتو أبداً"],
+                    ["عمر الفاروق","بدلت مبلغ كبير وكل شي كان تمام، الله يبارك"],
+                    ["Riad.SY","خدمة 5 نجوم، أنصح كل حدا يجرب"],
+                    ["ناصر الدين","الرد فوري والتحويل أسرع، تجربة ممتازة"],
+                    ["أحمد المصري","بوت محترم وأسعارو منيحة كتير"],
+                    ["جمال الحلبي","حولت 1200 دولار ووصلوا بدقائق، الله يعطيكم العافية"],
+                    ["Abu Yazan","تعامل ثقة وأمانة، ما في أحسن من هيك"],
+                    ["بسام الحاج علي","أحسن أسعار بالسوق بلا منافس"],
+                    ["محسن الشامي","تجربة موفقة وخدمة راقية، شكراً"],
+                    ["Wael.D","كل شي تمام من أول ما راسلت لحتى استلمت"],
+                    ["أحمد الناصر","الله يرزقكم، تعامل سريع وأمين"],
+                    ["أبو خالد","ما في تأخير ولا مشاكل، خدمة ممتازة"],
+                    ["سامر الشعار","بوت سهل وسريع وأسعار ممتازة"],
+                    ["عماد الدين","تعاملت معكن وكل شي كان تمام، الله يوفقكم"],
+                    ["Khodor.SY","التحويل وصل بأقل من دقيقتين، ما شاء الله"],
+                    ["أحمد الحسين","خدمة محترمة وأسعار منافسة، شكراً"],
+                    ["أبو مالك","الله يعطيكم العافية، تعامل ولا أروع"],
+                    ["عدنان الحلبي","من أفضل البوتات اللي جربتها للتبديل"],
+                    ["Rabea.S","سعر ممتاز وخدمة أسرع، تجربة ناجحة"],
+                    ["سعد الدين","حولت مبلغ كبير وما كان في أي قلق، الله يبارك"],
+                    ["محمد الحلواني","أحسن تعامل وصدق بالكلام، الله يرزقكم"],
+                    ["أبو دانا","تعامل نظيف وسريع، ما في شكوى"],
+                    ["Ibrahim.SY","بدلت USDT بشام كاش بسرعة، تجربة ممتازة"],
+                    ["أنس الشامي","الله يجزيكم الخير على الاحترافية"],
+                    ["أحمد الزين","سعر منافس وتحويل فوري، شكراً شباب"],
+                    ["أبو شادي","كل التعاملات معكن ناجحة، الله يوفقكم"],
+                    ["Hassan.D","خدمة 24 ساعة فعلاً، رديتو عليي بسرعة"],
+                    ["رفعت الحاج","تجربة موفقة وأسعار ممتازة"],
+                    ["ياسر الحلبي","بوت موثوق وأنا من زبائنكن الدائمين"],
+                    ["Mahmoud.Z","حولت 400 دولار ووصلوا فوراً، الله يبارك"],
+                    ["أحمد السباعي","أحسن خدمة صرافة رقمية جربتها"],
+                    ["أبو عمار","تعامل راقي وسريع، الله يرزقكم"],
+                    ["سامح الحلبي","الأسعار ممتازة والتحويل ما بيتأخر"],
+                    ["Tarek.SY","خدمة نظيفة وصدق بالتعامل، شكراً"],
+                    ["نزار الحلبي","بدلت مبلغ كبير وكل شي كان تمام"],
+                    ["محمد الحسن","الله يعطيكم الصحة، تعامل ولا أروع"],
+                    ["Ahmad Alhalabi","أسرع تحويل جربتو بحياتي، ما شاء الله"],
+                    ["أبو سليم","تجربة ناجحة 100%، رح ضل اتعامل معكن"],
+                    ["عمر الحلبي","سعر ممتاز وخدمة أسرع، الله يوفقكم"],
+                    ["Khalil.D","بوت محترم وأسعارو منيحة كتير"],
+                    ["أحمد الحموي","حولت شام كاش ووصلني USDT بدقائق"],
+                    ["أبو سعد","خدمة راقية وأمانة بالتعامل، شكراً"],
+                    ["سامر الحسن","الله يجزيكم الخير، ما في أي تأخير"],
+                    ["Mustafa.SY","من أفضل التجارب اللي مرقت عليي، أنصح الكل"],
+                    ["أحمد العلي","تعامل ثقة وسرعة بالتنفيذ، شكراً"],
+                    ["أبو فراس","حولت مبلغ كبير وكل شي تمام، الله يبارك"],
+                    ["Bassel.S","الأسعار منافسة والخدمة أسرع من التوقعات"],
+                    ["محمد الشامي","بوت سهل الاستخدام ونتائجو مضمونة"],
+                    ["Ali.SY","كل الشكر على السرعة والاحترافية"],
+                    ["أحمد القاسم","بدلت 2000 دولار ووصلوا فوراً، تجربة ممتازة"],
+                    ["أبو رضا","الله يعطيكم العافية، تعامل نظيف"],
+                    ["Nour.H","سعر ممتاز وتحويل سريع، شكراً كتير"],
+                    ["سامر القاسم","ما في أحسن من هيك خدمة، الله يرزقكم"],
+                    ["Ahmad.K","تعامل راقي ورد سريع، تجربة موفقة"],
+                    ["محمد الحاج","حولت مبلغ كبير وما ترددت لحظة، الله يبارك"],
+                    ["أبو يوسف","خدمة ممتازة وأسعار محترمة"],
+                    ["Samer.D","أسرع بوت للتبديل، ما في منو"],
+                    ["أحمد الحلواني","تجربة ناجحة وأنا من الزبائن الدائمين"],
+                    ["أبو إياد","الله يجزيكم الخير على الصدق والأمانة"],
+                    ["Hassan.SY","حولت 900 دولار ووصلوا بدقائق، شكراً"],
+                    ["محمد الصالح","بوت موثوق وأسعارو ممتازة"],
+                    ["Abu Nour","تعامل ولا أروع، الله يوفقكم"],
+                    ["أحمد الشعار","سرعة بالرد وسرعة بالتحويل، تجربة ممتازة"],
+                    ["أبو وليد","كل شي تمام، ما في أي مشكلة"],
+                    ["Omar.H","الأسعار أفضل من كل مكاتب الصرافة"],
+                    ["سامر الحسين","خدمة محترمة وأنا راضي كتير"],
+                    ["Ahmad.M","بدلت مبلغ كبير وكل شي كان تمام"],
+                    ["محمد الأمين","الله يعطيكم الصحة، تعامل راقي"],
+                    ["أبو قصي","أحسن تجربة تبادل عملات، شكراً شباب"],
+                    ["Sami.SY","التحويل وصل بسرعة والسعر كان منيح"],
+                    ["أحمد الحاج علي","بوت محترم وسهل، أنصح فيه"],
+                    ["Abu Fadi","تعامل ثقة وأمانة، الله يرزقكم"],
+                    ["سامر الحموي","خدمة أسرع من كل اللي جربتو"],
+                    ["Ahmad.R","حولت 600 دولار ووصلوا فوراً، تجربة موفقة"],
+                    ["محمد الخطيب","أسعار ممتازة وخدمة راقية"],
+                    ["أبو نضال","الله يجزيكم الخير، ما في تأخير"],
+                    ["Yazan.D","كل تعامل معكن ناجح، الله يوفقكم"],
+                    ["أحمد الشامي","من أفضل البوتات الموثوقة"],
+                    ["Abu Majd","تعاملت معكن كتير وكل مرة تمام"],
+                    ["سامر الحلواني","سعر منافس وتنفيذ فوري، شكراً"],
+                    ["Ahmad.S","خدمة نظيفة وسريعة، تجربة ممتازة"],
+                    ["محمد الزين","حولت شام كاش ووصلني USDT بسرعة"],
+                    ["أبو جهاد","الله يعطيكم العافية، تعامل ولا أروع"],
+                    ["Nader.SY","بوت سريع وأسعارو منيحة كتير"],
+                    ["أحمد الحاج حسن","تجربة ناجحة وأنا رح كررها أكيد"],
+                    ["Abu Ali","كل الشكر على الاحترافية والسرعة"],
+                    ["سامر الشامي","تعامل راقي وأسعار ممتازة"],
+                    ["Mohammad.D","حولت مبلغ كبير وكل شي كان تمام"],
+                    ["أحمد الحسن","خدمة أسرع من التوقعات بكتير"],
+                    ["أبو سامر","الله يبارك فيكم، تعامل نظيف"],
+                    ["Samer.SY","أفضل تجربة صرافة رقمية جربتها"],
+                    ["محمد الحسين","الرد فوري والتحويل أسرع، تجربة موفقة"],
+                    ["Ahmad.H","بدلت 3500 دولار ووصلوا بدقائق"],
+                    ["أبو كرم","الله يجزيكم الخير، خدمة ممتازة"],
+                    ["عدنان الشامي","أسعار منافسة وتنفيذ سريع، شكراً"],
+                    ["Khaled.SY","تعامل ثقة وأمانة، ما في أحسن من هيك"],
+                    ["أحمد الصالح","حولت مبلغ كبير وما كان في أي قلق"],
+                    ["Abu Rami","بوت محترم وخدمة أسرع، الله يوفقكم"],
+                    ["محمد الحموي","كل تعاملاتي معكن ناجحة، شكراً"],
+                    ["Samir.D","السرعة والدقة والأمانة، هيك بتكون الخدمة"],
+                    ["أحمد الحاج خليل","بدلت شام كاش بـ USDT بسرعة"],
+                    ["أبو عصام","الله يعطيكم الصحة، تعامل راقي"],
+                    ["Ahmad.A","خدمة ممتازة وأسعار محترمة"],
+                    ["سامر الحاج","تجربة موفقة وأنا راضي كتير"],
+                    ["محمد الشعار","حولت 1500 دولار ووصلوا فوراً"],
+                    ["Abu Samer","تعامل نظيف وسريع، ما في شكوى"],
+                    ["أحمد الحمصي","من أفضل التجارب، الله يرزقكم"],
+                    ["Nabil.SY","أسعار ممتازة وخدمة أسرع من التوقعات"],
+                    ["سامر الحسيني","كل شي تمام، شكراً شباب"],
+                    ["Ahmad.Y","بوت موثوق وأنا من زبائنو الدائمين"],
+                    ["محمد الحلبي","حولت مبلغ كبير وكل شي كان تمام"],
+                    ["أبو حسام","الله يجزيكم الخير على الأمانة"],
+                    ["Samer.H","تجربة ناجحة وأسعار منافسة"],
+                    ["أحمد الحاج محمد","خدمة راقية وسريعة، شكراً"],
+                    ["Abu Hasan","تعاملت معكن أكتر من مرة وكل مرة تمام"],
+                    ["سامر الحمصي","التحويل فوري والسعر ممتاز"],
+                    ["Ahmad.N","أحسن بوت جربتو للتبديل بلا منافس"],
+                    ["محمد الحاج حسين","بدلت مبلغ كبير ووصلت فوراً"],
+                    ["أبو راشد","الله يعطيكم العافية، تعامل ولا أروع"],
+                    ["Sami.D","خدمة محترمة وصدق بالتعامل"],
+                    ["رامي الحمصي","كل الشكر على السرعة والاحترافية"],
+                    ["Abu Wael","حولت 2500 دولار ووصلوا بدقائق"],
+                    ["مهند الحلبي","تجربة ممتازة وأسعار منافسة"],
+                    ["Abu Tarek","تعامل ثقة وأمانة، الله يبارك"],
+                    ["أحمد الحاج علي","خدمة سريعة وأسعار منيحة"],
+                    ["أبو عادل","الله يجزيكم الخير، ما في تأخير"],
+                    ["غيث الحمصي","بدلت USDT بشام كاش بسرعة، شكراً"],
+                    ["عيسى الحلبي","بوت سهل وسريع، تجربة موفقة"],
+                    ["Abu Ziad","تعاملت معكن وكل شي تمام"],
+                    ["صفوان الشامي","أسعار ممتازة وخدمة أسرع"],
+                    ["أحمد الحاج أحمد","حولت مبلغ كبير ووصل فوراً"],
+                    ["أبو مروان","الله يعطيكم الصحة، تعامل راقي"],
+                    ["إلياس الحمصي","خدمة 5 نجوم، أنصح الكل"],
+                    ["Abu Yaser","تجربة ناجحة وأسعار منافسة"],
+                    ["ثائر الحلبي","سرعة بالتحويل وصدق بالتعامل"],
+                    ["سامر الحاج حسن","كل الشكر على الخدمة الممتازة"],
+                    ["أم أنس","تعاملت معكن كذا مرة وكل مرة أحسن"],
+                    ["ريم الشامي","خدمة راقية وسريعة، شكراً"],
+                    ["نسرين الحلبي","أحسن أسعار لقيتها، الله يوفقكم"],
+                    ["هبة الحمصي","تجربة موفقة وأنا رح كررها"],
+                    ["ديمة العلي","بوت محترم وخدمة أسرع من التوقعات"],
+                    ["سارة الحاج","حولت مبلغ ووصل بسرعة، شكراً"],
+                    ["لمى الشامي","كل الشكر على الأمانة والسرعة"],
+                    ["رغد الحلبي","تعامل راقي وأسعار ممتازة، الله يرزقكم"],
+                    ["عبير الحموي","خدمة نظيفة وسريعة، تجربة ناجحة"],
+                    ["شهد الحلبي","أحسن تجربة تبادل عملات مرقت عليي"],
+                    ["أبو أحمد","الله يجزيكم الخير، تعامل ولا أروع"]
+                ];
+
+                (() => {
+                    const list = document.getElementById('reviewsList');
+                    if (!list)
+                        return;
+                    const initial = name => {
+                        const m = String(name).match(/[\u0600-\u06FFA-Za-z]/);
+                        return m ? m[0].toUpperCase() : '★'
+                    }
+                    ;
+                    list.innerHTML = REVIEWS.map( (r, i) => {
+                        const id = i + 1
+                          , name = r[0]
+                          , text = r[1];
+                        return '<article class="review" id="review-' + id + '">' + '<div class="avatar fallback">' + initial(name) + '</div>' + '<div class="review-body">' + '<strong>' + name + '</strong>' + (text ? '<p>' + text + '</p>' : '') + '<div class="review-footer">' + '<div class="review-stars" aria-label="5 من 5">★★★★★</div>' + '<div class="public-actions">' + '<button type="button" class="reply-review" data-id="' + id + '" data-name="' + name + '">رد ↩️</button>' + '</div></div></div></article>'
+                    }
+                    ).join('')
+                }
+                )();
+            </script>
+            <form class="composer" method="post" action="/syria-usdt/comment">
+                <input id="editId" name="edit_id" type="hidden" value="">
+                <input id="parentId" name="parent_id" type="hidden" value="">
+                <div id="replyMode" class="reply-mode" hidden>
+                    <span id="replyLabel"></span>
+                    <button id="cancelMode" type="button">إلغاء</button>
+                </div>
+                <div class="rating-picker">
+                    <span>قيّم تجربتك</span>
+                    <div class="stars-input" id="starsInput" role="slider" tabindex="0" aria-label="اختر التقييم من خمس نجوم" aria-valuemin="1" aria-valuemax="5" aria-valuenow="5">
+                        <button type="button" data-value="1" aria-label="نجمة واحدة">★</button>
+                        <button type="button" data-value="2" aria-label="نجمتان">★</button>
+                        <button type="button" data-value="3" aria-label="ثلاث نجوم">★</button>
+                        <button type="button" data-value="4" aria-label="أربع نجوم">★</button>
+                        <button type="button" data-value="5" aria-label="خمس نجوم">★</button>
+                        <input id="rating" name="rating" type="hidden" value="5">
+                    </div>
+                    <b id="ratingValue">5/5</b>
+                </div>
+                <div class="comment-row">
+                    <textarea name="text" maxlength="500" placeholder="اكتب تعليقك..."></textarea>
+                    <button type="submit" aria-label="إرسال">➤</button>
+                </div>
+            </form>
+        </main>
+        <div class="permission-modal" id="permissionModal" hidden role="dialog" aria-modal="true" aria-labelledby="permissionTitle">
+            <div class="permission-card">
+                <div class="permission-icon">⭐</div>
+                <h3 id="permissionTitle">التقييم بعد المعاملة</h3>
+                <p>تستطيع التعليق وتقييم تجربتك فقط بعد اجراء اي معاملة ناجحة في البوت</p>
+                <button type="button" onclick="document.getElementById('permissionModal').hidden=true">حسنا</button>
+            </div>
+        </div>
+        <script>
+            ( () => {
+                const box = document.getElementById('starsInput')
+                  , input = document.getElementById('rating')
+                  , label = document.getElementById('ratingValue')
+                  , area = document.querySelector('textarea[name="text"]')
+                  , edit = document.getElementById('editId')
+                  , parent = document.getElementById('parentId')
+                  , mode = document.getElementById('replyMode')
+                  , modeLabel = document.getElementById('replyLabel')
+                  , picker = document.querySelector('.rating-picker');
+                if (!box || !input)
+                    return;
+                const stars = [...box.querySelectorAll('button[data-value]')];
+                let value = 5;
+                const setValue = n => {
+                    value = Math.max(1, Math.min(5, Number(n) || 1));
+                    input.value = String(value);
+                    box.setAttribute('aria-valuenow', String(value));
+                    if (label)
+                        label.textContent = value + '/5';
+                    stars.forEach( (s, i) => s.classList.toggle('off', i >= value))
+                }
+                ;
+                const reset = () => {
+                    edit.value = '';
+                    parent.value = '';
+                    mode.hidden = true;
+                    picker.hidden = false;
+                    area.placeholder = 'اكتب تعليقك...';
+                    area.value = '';
+                    setValue(5)
+                }
+                ;
+                const replyMode = (id, name) => {
+                    edit.value = '';
+                    parent.value = id;
+                    mode.hidden = false;
+                    modeLabel.textContent = 'رد على ' + name;
+                    picker.hidden = true;
+                    area.placeholder = 'اكتب ردك...';
+                    area.value = '';
+                    area.focus();
+                    area.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    })
+                }
+                ;
+                const fromPoint = x => {
+                    const r = box.getBoundingClientRect();
+                    return Math.ceil(((x - r.left) / r.width) * 5)
+                }
+                ;
+                stars.forEach(s => s.addEventListener('click', () => setValue(s.dataset.value)));
+                box.addEventListener('pointerdown', e => {
+                    box.setPointerCapture?.(e.pointerId);
+                    setValue(fromPoint(e.clientX));
+                    e.preventDefault()
+                }
+                );
+                box.addEventListener('pointermove', e => {
+                    if (e.buttons || e.pressure > 0)
+                        setValue(fromPoint(e.clientX))
+                }
+                );
+                box.addEventListener('keydown', e => {
+                    if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+                        setValue(value + 1);
+                        e.preventDefault()
+                    }
+                    if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+                        setValue(value - 1);
+                        e.preventDefault()
+                    }
+                }
+                );
+                document.querySelectorAll('.reply-review').forEach(btn => btn.addEventListener('click', () => replyMode(btn.dataset.id, btn.dataset.name)));
+                document.querySelectorAll('.edit-review').forEach(btn => btn.addEventListener('click', () => {
+                    edit.value = btn.dataset.id;
+                    parent.value = '';
+                    mode.hidden = false;
+                    modeLabel.textContent = 'تعديل تعليقك';
+                    const isReply = btn.dataset.reply === '1';
+                    picker.hidden = isReply;
+                    area.placeholder = isReply ? 'عدّل ردك...' : 'عدّل تعليقك...';
+                    area.value = btn.dataset.text || '';
+                    if (!isReply)
+                        setValue(btn.dataset.rating || 5);
+                    area.focus();
+                    area.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    })
+                }
+                ));
+                document.getElementById('cancelMode')?.addEventListener('click', reset);
+                setValue(5)
+            }
+            )();
+        </script>
+        <script>
+            ( () => {
+                const modal = document.getElementById('permissionModal');
+                const form = document.querySelector('.composer');
+                if (!modal || !form)
+                    return;
+                form.addEventListener('submit', e => {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    modal.hidden = false;
+                    modal.querySelector('button')?.focus()
+                }
+                , true);
+                document.addEventListener('keydown', e => {
+                    if (e.key === 'Escape')
+                        modal.hidden = true
+                }
+                )
+            }
+            )();
+        </script>
+    </body>
+</html>
